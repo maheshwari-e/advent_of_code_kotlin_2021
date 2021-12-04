@@ -1,8 +1,8 @@
 fun main() {
     fun part1(input: List<String>): Int {
         val strLength = input.first().length
-        var gammarate = StringBuilder()
-        var epsilonrate = StringBuilder()
+        val gammarate = StringBuilder()
+        val epsilonrate = StringBuilder()
         for (i in 0 until strLength) {
             val count = input.count { it.toCharArray()[i] == '0' }
             if (count > (input.size - count)) {
@@ -17,7 +17,7 @@ fun main() {
     }
 
     fun determineRating(input: List<String>, type: String): String {
-        var data = input.toMutableList()
+        val data = input.toMutableList()
         var index = 0
         while(data.size > 1) {
             val filterData = data.filter {  it.toCharArray()[index] == '0' }
