@@ -25,9 +25,7 @@ fun main() {
 }
 
 private fun String.convertHexDecimalToBinary() = this.map {
-    var digit = Integer.toBinaryString(Integer.parseInt(it.toString(), 16))
-    if (digit.length < 4) { repeat((0 until 4 - digit.length).count()) { digit = "0$digit" } }
-    digit
+    Integer.toBinaryString(Integer.parseInt(it.toString(), 16)).padStart(4,'0')
 }.joinToString("")
 
 fun <T> MutableList<T>.takeAndRemove(n: Int)  = this.take(n).also { this.subList(0,n).clear()}.joinToString("")
