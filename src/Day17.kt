@@ -6,7 +6,7 @@ fun main() {
         val velocities = mutableListOf<Velocity>()
         (0..targetArea.xRange.last).forEach { x->
             (targetArea.yRange.first..abs(targetArea.yRange.first)).forEach { y->
-                 if(Probe(Velocity(x, y), targetArea).launch()) velocities += Velocity(x, y)
+                if(Probe(Velocity(x, y), targetArea).launch()) velocities += Velocity(x, y)
             }
         }
         return velocities
@@ -15,7 +15,7 @@ fun main() {
     fun part1(input: List<String>): Int {
         val targetArea= input.first().getTargetArea()
         val velocities: List<Velocity> = getVelocities(targetArea)
-       return velocities.maxOf { (it.y)*(it.y+1)/2 }
+        return velocities.maxOf { (it.y)*(it.y+1)/2 }
     }
 
     fun part2(input: List<String>): Int {
@@ -44,25 +44,19 @@ private fun String.getTargetArea():TargetArea {
 }
 
 data class TargetArea(val xRange: IntRange, val yRange: IntRange)
-data class Velocity(var x:Int, var y:Int){
-    fun dragPosition(){
-        x -= x.sign
-        y -= 1
-    }
-}
-
-class Probe(private val velocity: Velocity, private val targetArea: TargetArea){
+data class Velocity(val x:Int, val y:Int)
+class Probe(private var velocity: Velocity, private val targetArea: TargetArea){
     private var x: Int= 0
     private var y: Int= 0
     fun launch(): Boolean {
-       do {
-           x += velocity.x
-           y += velocity.y
-           velocity.dragPosition()
-           if(checkProbeHit()) return true
-           val probeMissTarget= checkMissTarget()
-       }while(!probeMissTarget)
-       return false
+        do {
+            x += velocity.x
+            y += velocity.y
+            velocity = velocity.copy(x = velocity.x - velocity.x.sign, y = velocity.y -  1)
+            if(checkProbeHit()) return true
+            val probeMissTarget= checkMissTarget()
+        }while(!probeMissTarget)
+        return false
     }
 
     private fun checkMissTarget(): Boolean = x > targetArea.xRange.last || y < targetArea.yRange.first
