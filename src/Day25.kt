@@ -41,9 +41,9 @@ fun main() {
 // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day25_test")
     check(part1(testInput)  == 58)
-//    check(part2(testInput) == )
+    check(part2(testInput) == 9)
 
-    val input = readInput("Day25_test")
+    val input = readInput("Day25")
     println(part1(input))
     println(part2(input))
 }
